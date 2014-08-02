@@ -33,25 +33,92 @@ class parse_rssjs {
 
   }
 
+  function check($obj, $obj_two = NULL){
+
+    if (!empty($obj)){
+      return $obj;
+    } elseif(!empty($obj_two)){
+      # the ability to do 'or'
+      # @todo - use func_get_arguments to extend this indefinetly?
+      return $obj_two;
+    } else {
+      return false;
+    }
+
+  }
+
+  function check_tag($obj, $tag){
+
+    if (false != $this->check($obj)){
+      $obj_arr = (array) $obj;
+      if (!empty($this->check($obj_arr[$tag]))){
+        return $this->check($obj_arr[$tag]);
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+
+  }
+
   function version(){
-    return $this->obj->rss->version;
+    return $this->check($this->obj->rss->version);
   }
 
   function feed_title(){
-    return $this->obj->rss->channel->title;
+    return $this->check($this->obj->rss->channel->title);
   }
 
   function feed_url(){
-    return $this->obj->rss->channel->link;
+    return $this->check($this->obj->rss->channel->link);
   }
 
   function feed_description(){
-    return $this->obj->rss->channel->description;
+    return $this->check($this->obj->rss->channel->description);
   }
 
   function feed_language(){
-    return $this->obj->rss->channel
+    return $this->check($this->obj->rss->channel->language);
   }
+
+  function feed_copyright(){
+    return $this->check($this->obj->rss->channel->copyright);
+  }
+
+  function feed_last_build(){
+    return $this->check($this->obj->rss->channel->lastBuildDate);
+  }
+
+  function feed_pubDate(){
+    return $this->check($this->obj->rss->channel->pubDate);
+  }
+
+  function feed_docs(){
+    return $this->check($this->obj->rss->channel->docs);
+  }
+
+  function feed_generator(){
+    return $this->check($this->obj->rss->channel->generator);
+  }
+
+  function feed_managingEditor(){
+    return $this->check($this->obj->rss->channel->managingEditor);
+  }
+
+  function feed_webMaster(){
+    return $this->check($this->obj->rss->channel->webMaster);
+  }
+
+  function feed_ttl(){
+    return $this->check($this->obj->rss->channel->ttl);
+  }
+
+  function feed_cloud($tag){
+    return $this->check_tag($this->obj->rss->channel->cloud, $tag);
+  }
+
+
 
   function top_walker($file){
 
