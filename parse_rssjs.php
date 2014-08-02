@@ -5,16 +5,16 @@ class parse_rssjs {
   var $file;
   var $obj;
 
-  function __construct($file_gotten){
+  function __construct($page = false){
 
-    $this->file = $file_gotten;
+    $this->file = $page;
 
   }
 
-  function fetch(){
+  function fetch($url){
 
     #Don't want to fetch it yourself? Let us fetch it for you.
-    $f = file_get_contents($this->file);
+    $f = file_get_contents($url);
     $this->file = $f;
     $this->rssjs_decode();
 
@@ -29,7 +29,7 @@ class parse_rssjs {
 
   function rssjs_decode(){
 
-    $this->obj = json_decode($file);
+    $this->obj = json_decode($this->file);
 
   }
 
@@ -116,6 +116,16 @@ class parse_rssjs {
 
   function feed_cloud($tag){
     return $this->check_tag($this->obj->rss->channel->cloud, $tag);
+  }
+
+  function feed_items(){
+    return $this->check($this->obj->rss->channel->item);
+  }
+
+  function feed_count(){
+    if (false != $this->check($this->feed_items())){
+      return count($this->feed_items());
+    }
   }
 
 
