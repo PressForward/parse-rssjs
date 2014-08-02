@@ -132,8 +132,7 @@ class parse_rssjs {
 
   function top_walker($file){
 
-    $obj = $this->obj;
-    foreach ($jd->rss->channel->item as $item){
+    foreach ($this->feed_items as $item){
 
       #var_dump($item);
 
