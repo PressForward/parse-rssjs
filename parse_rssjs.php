@@ -11,6 +11,11 @@ class parse_rssjs {
 
   }
 
+   function __destruct() {
+      $this->file = NULL;
+      $this->obj = NULL;
+   }
+
   function fetch($url){
 
     #Don't want to fetch it yourself? Let us fetch it for you.
