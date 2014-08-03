@@ -125,6 +125,7 @@ class parse_rssjs {
 
   function feed_items(){
     return $this->check($this->obj->rss->channel->item);
+
   }
 
   function feed_count(){
@@ -135,13 +136,15 @@ class parse_rssjs {
 
 
 
-  function top_walker($file){
+  function get_items(){
 
     foreach ($this->feed_items as $item){
 
       #var_dump($item);
 
     }
+
+    
 
 
   }
